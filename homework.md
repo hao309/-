@@ -303,13 +303,41 @@ describe zuoye2;
 # 第三次作业
 ## 输出我、我的老板、我的老板的老板
 ```sql
-select '我','我的老板','我的老板的老板';
-+----+----------+----------------+
-| 我 | 我的老板 | 我的老板的老板 |
-+----+----------+----------------+
-| 我 | 我的老板 | 我的老板的老板 |
-+----+----------+----------------+
-1 row in set (0.00 sec)
+select t1.ename '我',t2.ename '我的老板' ,t3.ename '我的老板的老板'
+    -> from (t_employee t1 inner join t_employee t2 on t1. empno= t2.mgr )  inner join t_employee t3 on t2. empno= t3.mgr;
++-------+----------+----------------+
+| 我    | 我的老板 | 我的老板的老板 |
++-------+----------+----------------+
+| JONES | FORD     | SMITH          |
+| KING  | BLAKE    | ALLEN          |
+| KING  | BLAKE    | WARD           |
+| KING  | BLAKE    | MARTIN         |
+| KING  | JONES    | SCOTT          |
+| JONES | SCOTT    | ADAMS          |
+| KING  | BLAKE    | JAMES          |
+| KING  | JONES    | FORD           |
++-------+----------+----------------+
+8 rows in set (0.00 sec)
+
+mysql> select*from t_employee;
++--------+-------+--------+-----------+------+------------+------+------+
+| deptno | empno | ename  | job       | MGR  | Hiredate   | sal  | comm |
++--------+-------+--------+-----------+------+------------+------+------+
+|     20 |  7369 | SMITH  | CLERK     | 7902 | 1981-03-12 |  800 | NULL |
+|     30 |  7499 | ALLEN  | SALESMAN  | 7698 | 1982-03-12 | 1600 |  300 |
+|     30 |  7521 | WARD   | SALESMAN  | 7698 | 1838-03-12 | 1250 |  500 |
+|     20 |  7566 | JONES  | MANAGER   | 7839 | 1981-03-12 | 2975 | NULL |
+|     30 |  7654 | MARTIN | SALESMAN  | 7698 | 1981-01-12 | 1250 | 1400 |
+|     10 |  7698 | BLAKE  | MANAGER   | 7839 | 1985-03-12 | 2450 | NULL |
+|     20 |  7788 | SCOTT  | ANALYST   | 7566 | 1981-03-12 | 3000 | NULL |
+|     10 |  7839 | KING   | PRESIDENT | NULL | 1981-03-12 | 5000 | NULL |
+|     30 |  7844 | TURNER | SALESMAN  | 7689 | 1981-03-12 | 1500 |    0 |
+|     20 |  7878 | ADAMS  | CLERK     | 7788 | 1981-03-12 | 1100 | NULL |
+|     30 |  7900 | JAMES  | CLERK     | 7698 | 1981-03-12 |  950 | NULL |
+|     20 |  7902 | FORD   | ANALYST   | 7566 | 1981-03-12 | 3000 | NULL |
+|     10 |  7934 | MILLER | CLERK     | 7782 | 1981-03-12 | 1300 | NULL |
++--------+-------+--------+-----------+------+------------+------+------+
+13 rows in set (0.00 sec)
 ```
 # 第四次作业
 ## 1.select * from t_employee WHERE sal > (select sal from t_employee WHERE ename='SMITH');使用inner join 表示
