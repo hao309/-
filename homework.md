@@ -300,3 +300,60 @@ describe zuoye2;
 +----------+-------------+------+-----+---------+-------+
 3 rows in set (0.00 sec)
 ```
+# 第三次作业
+## 输出我、我的老板、我的老板的老板
+# 第四次作业
+## 
+# 第五次作业
+## 1.运行存储过程
+```sql
+DELIMITER $$
+mysql> CREATE PROCEDURE proce_employee_sal1 ()
+    -> BEGIN
+    ->     SELECT sal
+    -> FROM t_employee;
+    -> END$$
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> DELIMITER ;
+mysql> CALL proce_employee_sal1();
++------+
+| sal  |
++------+
+|  800 |
+| 1600 |
+| 1250 |
+| 2975 |
+| 1250 |
+| 2450 |
+| 3000 |
+| 5000 |
+| 1500 |
+| 1100 |
+|  950 |
+| 3000 |
+| 1300 |
++------+
+13 rows in set (0.01 sec)
+
+Query OK, 0 rows affected (0.06 sec)
+```
+## 2.函数
+```sql
+DELIMITER $$
+mysql> CREATE FUNCTION func_employee_sal (empno INT)
+    -> RETURNS DOUBLE
+    -> BEGIN
+    ->     RETURN (SELECT sal FROM t_employee WHERE t_employee.empno = empno);
+    -> END$$
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> DELIMITER ;
+mysql> SELECT func_employee_sal(7369);
++-------------------------+
+| func_employee_sal(7369) |
++-------------------------+
+|                     800 |
++-------------------------+
+1 row in set (0.00 sec)
+```
